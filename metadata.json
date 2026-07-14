@@ -1,0 +1,6 @@
+{
+  "name": "Kevin Tennison Portfolio",
+  "description": "Professional portfolio website for Kevin Tennison, a Computer Science & Design undergraduate specializing in full-stack web development, multi-agent AI orchestration, and computer vision.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
