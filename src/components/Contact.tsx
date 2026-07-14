@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
-import emailjs from "@emailjs/browser";
 import { 
   Mail, Github, Linkedin, MapPin, Send, 
   CheckCircle, RefreshCw
 } from "lucide-react";
 
-// Replace these with your actual EmailJS credentials
 const EMAILJS_SERVICE_ID = "service_5m1d27d";
 const EMAILJS_TEMPLATE_ID = "template_la03jwo";
 const EMAILJS_PUBLIC_KEY = "srGbv9kKIGUImSyq";
@@ -25,18 +23,22 @@ export default function Contact() {
     setIsSending(true);
 
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_name: name,
-          from_email: email,
-          message: message,
-          email: email,
-          time: new Date().toLocaleString(),
-        },
-        EMAILJS_PUBLIC_KEY
-      );
+      await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service_id: EMAILJS_SERVICE_ID,
+          template_id: EMAILJS_TEMPLATE_ID,
+          user_id: EMAILJS_PUBLIC_KEY,
+          template_params: {
+            from_name: name,
+            from_email: email,
+            message: message,
+            email: email,
+            time: new Date().toLocaleString(),
+          },
+        }),
+      });
 
       // Dispatch telemetric event for real-time site analytics
       window.dispatchEvent(new Event("analytics_contact_dispatch"));
