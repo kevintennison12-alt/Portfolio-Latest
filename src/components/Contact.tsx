@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
+import emailjs from "@emailjs/browser";
 import { 
   Mail, Github, Linkedin, MapPin, Send, 
   CheckCircle, RefreshCw
 } from "lucide-react";
+
+// Replace these with your actual EmailJS credentials
+const EMAILJS_SERVICE_ID = "service_5m1d27d";
+const EMAILJS_TEMPLATE_ID = "template_la03jwo";
+const EMAILJS_PUBLIC_KEY = "srGbv9kKIGUImSyq";
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -19,29 +25,30 @@ export default function Contact() {
     setIsSending(true);
 
     try {
-      await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: name,
+          from_email: email,
+          message: message,
+          email: email,
+          time: new Date().toLocaleString(),
         },
-        body: JSON.stringify({ name, email, message })
-      });
+        EMAILJS_PUBLIC_KEY
+      );
 
       // Dispatch telemetric event for real-time site analytics
       window.dispatchEvent(new Event("analytics_contact_dispatch"));
 
       setIsSending(false);
       setIsSent(true);
-
-      // Reset form
       setName("");
       setEmail("");
       setMessage("");
-
-      // Hide success banner after 4s
       setTimeout(() => setIsSent(false), 4000);
     } catch (error) {
-      console.error("Failed to send contact message via API:", error);
+      console.error("EmailJS error:", error);
       setIsSending(false);
     }
   };
