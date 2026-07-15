@@ -15,6 +15,7 @@ export default function Contact() {
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [isSent, setIsSent] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +24,7 @@ export default function Contact() {
     setIsSending(true);
 
     try {
-      await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -31,6 +32,7 @@ export default function Contact() {
           template_id: EMAILJS_TEMPLATE_ID,
           user_id: EMAILJS_PUBLIC_KEY,
           template_params: {
+            name: name,
             from_name: name,
             from_email: email,
             message: message,
@@ -39,6 +41,11 @@ export default function Contact() {
           },
         }),
       });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`EmailJS error ${response.status}: ${errText}`);
+      }
 
       // Dispatch telemetric event for real-time site analytics
       window.dispatchEvent(new Event("analytics_contact_dispatch"));
@@ -49,8 +56,9 @@ export default function Contact() {
       setEmail("");
       setMessage("");
       setTimeout(() => setIsSent(false), 4000);
-    } catch (error) {
+    } catch (error: any) {
       console.error("EmailJS error:", error);
+      setSendError(error?.message || "Failed to send. Please try again.");
       setIsSending(false);
     }
   };
@@ -214,6 +222,14 @@ export default function Contact() {
                 )}
               </button>
             </form>
+
+            {/* Error banner */}
+            {sendError && (
+              <div className="mt-4 p-4 rounded-none bg-red-500/10 border border-red-500/30 text-xs text-red-400 font-mono">
+                <span className="font-bold uppercase tracking-wide text-[10px] block mb-1">Dispatch Failed</span>
+                {sendError}
+              </div>
+            )}
 
             {/* Success alert banner */}
             {isSent && (
