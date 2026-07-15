@@ -7,7 +7,7 @@ import {
 
 const EMAILJS_SERVICE_ID = "service_5m1d27d";
 const EMAILJS_TEMPLATE_ID = "template_la03jwo";
-const EMAILJS_PUBLIC_KEY = "srGbv9kKIGUImSyq";
+const EMAILJS_PUBLIC_KEY = "srGbv9kKIGUImSyqw";
 
 export default function Contact() {
   const [name, setName] = useState("");
