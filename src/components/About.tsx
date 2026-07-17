@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 
 export default function About() {
-  const [imgSrc, setImgSrc] = useState("/assets/kevin.jpg");
+  const [imgSrc, setImgSrc] = useState("https://github.com/kevintennison12-alt.png");
 
   // Load live uploaded photo from localStorage if present
   useEffect(() => {
