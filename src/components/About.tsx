@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { 
-  Award, Code2, Flame, Music, Fingerprint, 
-  Terminal, Sparkles, CheckCircle, Volume2 
-} from "lucide-react";
 
 export default function About() {
   const [imgSrc, setImgSrc] = useState("/assets/kevin.jpg");
@@ -15,19 +11,6 @@ export default function About() {
       setImgSrc(saved);
     }
   }, []);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64 = reader.result as string;
-        setImgSrc(base64);
-        localStorage.setItem("kevin_custom_portrait", base64);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   return (
     <section id="about" className="py-24 relative overflow-hidden bg-zinc-950/20 border-b border-editorial-border">
@@ -69,61 +52,13 @@ export default function About() {
                 {/* Internal Scanlines & Gloss effects */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-brand/[0.03] to-transparent pointer-events-none z-10" />
                 
-                <div className="relative aspect-[4/5] w-full bg-zinc-950 flex flex-col items-center justify-center overflow-hidden border border-zinc-800/80">
-                  {imgSrc ? (
-                    <img 
-                      src={imgSrc}
-                      alt="Kevin Tennison"
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                      onError={() => {
-                        // Reset image source to show elegant customized uploader box
-                        setImgSrc("");
-                      }}
-                    />
-                  ) : (
-                    <div className="p-8 text-center flex flex-col items-center justify-center space-y-4">
-                      <div className="w-12 h-12 rounded-full bg-brand/10 flex items-center justify-center border border-brand/30">
-                        <Code2 className="w-6 h-6 text-brand" />
-                      </div>
-                      <div>
-                        <p className="text-xs font-mono text-zinc-300 font-bold uppercase tracking-wider">
-                          No Photo Loaded
-                        </p>
-                        <p className="text-[10px] font-mono text-zinc-500 mt-1.5 uppercase max-w-[220px] leading-relaxed">
-                          Save your image as <span className="text-brand font-bold">kevin.jpg</span> inside <span className="text-zinc-400">/assets/</span> or upload live.
-                        </p>
-                      </div>
-                      <label className="px-4 py-2 bg-brand/15 hover:bg-brand/25 border border-brand/30 text-[9px] font-mono text-brand uppercase tracking-widest cursor-pointer transition-all">
-                        Upload Photo Live
-                        <input 
-                          type="file" 
-                          accept="image/*" 
-                          className="hidden" 
-                          onChange={handleFileChange}
-                        />
-                      </label>
-                    </div>
-                  )}
-
-                  {/* Interactive replace overlay on hover if an image exists */}
-                  {imgSrc && (
-                    <label className="absolute inset-0 bg-black/75 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center cursor-pointer z-20">
-                      <Sparkles className="w-6 h-6 text-brand mb-2 animate-pulse" />
-                      <span className="text-[10px] font-mono text-white uppercase tracking-widest font-bold">
-                        Choose Your Photo
-                      </span>
-                      <span className="text-[8px] font-mono text-zinc-400 uppercase tracking-widest mt-1.5">
-                        (or save in /assets/kevin.jpg)
-                      </span>
-                      <input 
-                        type="file" 
-                        accept="image/*" 
-                        className="hidden" 
-                        onChange={handleFileChange}
-                      />
-                    </label>
-                  )}
+                <div className="relative aspect-[4/5] w-full bg-zinc-950 overflow-hidden border border-zinc-800/80">
+                  <img 
+                    src={imgSrc || "/assets/kevin.jpg"}
+                    alt="Kevin Tennison"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                  />
                 </div>
               </div>
             </motion.div>
