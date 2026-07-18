@@ -22,7 +22,7 @@ export default function About() {
         {/* Section Heading */}
         <div className="mb-16">
           <div className="flex items-center space-x-2 text-brand font-mono text-xs tracking-[0.25em] font-bold uppercase mb-3">
-            <span>PROFILE BRIEF</span>
+            <span>02 // PROFILE BRIEF</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-sans font-black tracking-tight text-white uppercase">
             About My Engineering Philosophy
@@ -54,10 +54,10 @@ export default function About() {
                 
                 <div className="relative aspect-[4/5] w-full bg-zinc-950 overflow-hidden border border-zinc-800/80">
                   <img 
-                    src={imgSrc || "/assets/kevin.jpg"}
+                    src={imgSrc || "https://github.com/kevintennison12-alt.png"}
                     alt="Kevin Tennison"
                     referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                    className="w-full h-full object-cover transition-all duration-500"
                   />
                 </div>
               </div>
