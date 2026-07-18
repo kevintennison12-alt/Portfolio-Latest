@@ -22,7 +22,7 @@ export default function About() {
         {/* Section Heading */}
         <div className="mb-16">
           <div className="flex items-center space-x-2 text-brand font-mono text-xs tracking-[0.25em] font-bold uppercase mb-3">
-            <span>02 // PROFILE BRIEF</span>
+            <span>PROFILE BRIEF</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-sans font-black tracking-tight text-white uppercase">
             About My Engineering Philosophy
