@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X, Bot, Terminal, FileText, ArrowRight } from "lucide-react";
+import { Menu, X, Bot, Terminal, FileText, ArrowRight, Palette } from "lucide-react";
+import { THEMES } from "../themes";
 
 interface HeaderProps {
   onOpenChat: () => void;
+  activeTheme: string;
+  onChangeTheme: (themeId: string) => void;
 }
 
-export default function Header({ onOpenChat }: HeaderProps) {
+export default function Header({ onOpenChat, activeTheme, onChangeTheme }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
@@ -108,6 +112,52 @@ export default function Header({ onOpenChat }: HeaderProps) {
 
         {/* Action Button */}
         <div className="hidden md:flex items-center space-x-3" id="header-actions">
+          {/* Theme Switcher Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
+              className="flex items-center space-x-2 px-3 py-2 rounded-none text-[10px] font-bold tracking-widest text-zinc-300 bg-zinc-950 border border-editorial-border hover:border-brand hover:text-white transition-all duration-300 cursor-pointer"
+            >
+              <Palette className="w-3.5 h-3.5 text-brand" />
+              <span>THEME</span>
+            </button>
+            
+            {isThemeMenuOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-editorial-dark border border-editorial-border shadow-2xl rounded-none py-1 z-50">
+                <div className="px-3 py-1.5 border-b border-editorial-border text-[8px] font-mono font-bold uppercase tracking-widest text-zinc-500">
+                  Select Theme Protocol
+                </div>
+                {THEMES.map(t => (
+                  <button
+                    key={t.id}
+                    onClick={() => {
+                      onChangeTheme(t.id);
+                      setIsThemeMenuOpen(false);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 text-left text-[10px] font-mono transition-colors cursor-pointer ${
+                      activeTheme === t.id 
+                        ? "text-brand bg-zinc-900" 
+                        : "text-zinc-400 hover:text-white hover:bg-zinc-900/50"
+                    }`}
+                  >
+                    <span className="flex items-center space-x-2">
+                      <span 
+                        className="w-2.5 h-2.5 rounded-full border border-zinc-700 shrink-0" 
+                        style={{ backgroundColor: t.brand }}
+                      />
+                      <span>{t.name}</span>
+                    </span>
+                    {activeTheme === t.id && (
+                      <span className="text-[8px] font-bold text-brand uppercase tracking-tighter">
+                        Active
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           <button
             onClick={onOpenChat}
             className="flex items-center space-x-2 px-4 py-2 rounded-none text-[10px] font-bold tracking-widest text-black bg-[#F0F0F0] hover:bg-brand hover:text-black border border-transparent transition-all duration-300"
@@ -138,7 +188,7 @@ export default function Header({ onOpenChat }: HeaderProps) {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-[#050505]/95 backdrop-blur-lg border-b border-editorial-border py-4 px-4 space-y-3" id="mobile-nav">
+        <div className="md:hidden bg-editorial-dark/95 backdrop-blur-lg border-b border-editorial-border py-4 px-4 space-y-4" id="mobile-nav">
           <div className="grid grid-cols-2 gap-2">
             {navItems.map((item, idx) => (
               <button
@@ -155,6 +205,33 @@ export default function Header({ onOpenChat }: HeaderProps) {
               </button>
             ))}
           </div>
+
+          {/* Mobile Theme Selection block */}
+          <div className="pt-3 border-t border-editorial-border">
+            <span className="block text-[8px] font-mono font-bold uppercase tracking-widest text-zinc-500 mb-2">
+              Select Theme Protocol
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {THEMES.map(t => (
+                <button
+                  key={t.id}
+                  onClick={() => onChangeTheme(t.id)}
+                  className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-none text-[9px] font-mono transition-colors border ${
+                    activeTheme === t.id
+                      ? "text-brand bg-brand/10 border-brand"
+                      : "text-zinc-400 bg-zinc-950 border-editorial-border hover:border-zinc-700"
+                  }`}
+                >
+                  <span 
+                    className="w-1.5 h-1.5 rounded-full shrink-0"
+                    style={{ backgroundColor: t.brand }}
+                  />
+                  <span>{t.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="pt-2 border-t border-editorial-border flex flex-col space-y-2">
             <button
               onClick={() => {
