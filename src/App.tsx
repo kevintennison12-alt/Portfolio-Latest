@@ -10,6 +10,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import AITwinChat from "./components/AITwinChat";
 import ResumeModal from "./components/ResumeModal";
+import { THEMES } from "./themes";
 
 export default function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -17,11 +18,26 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [loadingLog, setLoadingLog] = useState("Initializing core protocols...");
+  const [themeId, setThemeId] = useState<string>(() => {
+    return localStorage.getItem("portfolio_theme") || "cyberpunk";
+  });
 
   const openChat = () => setIsChatOpen(true);
   const closeChat = () => setIsChatOpen(false);
   const openResume = () => setIsResumeOpen(true);
   const closeResume = () => setIsResumeOpen(false);
+
+  useEffect(() => {
+    const active = THEMES.find(t => t.id === themeId) || THEMES[0];
+    const root = document.documentElement;
+    root.style.setProperty("--color-theme-brand", active.brand);
+    root.style.setProperty("--color-theme-dark", active.dark);
+    root.style.setProperty("--color-theme-card", active.card);
+    root.style.setProperty("--color-theme-border", active.border);
+    root.style.setProperty("--color-theme-border-light", active.borderLight);
+    root.style.setProperty("--color-theme-glow", active.glowColor);
+    localStorage.setItem("portfolio_theme", themeId);
+  }, [themeId]);
 
   useEffect(() => {
     const logs = [
@@ -91,12 +107,12 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#09090b] text-zinc-100 selection:bg-blue-600 selection:text-white antialiased">
+    <div className="relative min-h-screen bg-editorial-dark text-zinc-100 antialiased">
       {/* Dynamic Grid Background Overlay */}
-      <div className="fixed inset-0 bg-[#09090b] bg-[linear-gradient(to_right,#27272a_0.5px,transparent_0.5px),linear-gradient(to_bottom,#27272a_0.5px,transparent_0.5px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_65%,transparent_100%)] opacity-10 pointer-events-none z-0" />
+      <div className="fixed inset-0 bg-editorial-dark bg-[linear-gradient(to_right,var(--color-theme-border)_0.5px,transparent_0.5px),linear-gradient(to_bottom,var(--color-theme-border)_0.5px,transparent_0.5px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_65%,transparent_100%)] opacity-10 pointer-events-none z-0" />
 
       {/* Floating Transparent Navigation */}
-      <Header onOpenChat={openChat} />
+      <Header onOpenChat={openChat} activeTheme={themeId} onChangeTheme={setThemeId} />
 
       <main className="relative z-10">
         {/* Hero Area */}
