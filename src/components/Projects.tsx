@@ -401,11 +401,21 @@ export default function Projects() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((p) => (
-              <div
+              <motion.div
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.25 }}
+                whileHover={{ y: -5 }}
                 key={p.id}
-                className="bg-zinc-950 border border-editorial-border rounded-none p-5 flex flex-col justify-between group hover:border-brand/45 transition-all duration-300 relative"
+                className="bg-zinc-950 border border-editorial-border rounded-none p-5 flex flex-col justify-between group hover:border-brand/45 transition-all duration-300 relative overflow-hidden"
               >
-                <div>
+                {/* Glow Expansion on Hover */}
+                <div className="absolute inset-0 bg-brand/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute inset-0 border border-brand/0 group-hover:border-brand/20 scale-105 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none" />
+
+                <div className="relative z-10">
                   <div className="flex justify-between items-start mb-4">
                     <span className="text-[9px] font-mono tracking-widest text-brand font-bold uppercase">
                       {p.category}
@@ -481,7 +491,7 @@ export default function Projects() {
                     Built . Live Soon !
                   </button>
                 )}
-              </div>
+              </motion.div>
             ))}
           </AnimatePresence>
         </div>
