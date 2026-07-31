@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "motion/react";
-import profileImg from "../assets/profile.jpg";
 
 export default function About() {
   return (
@@ -45,7 +44,7 @@ export default function About() {
                 
                 <div className="relative aspect-[4/5] w-full bg-zinc-950 overflow-hidden border border-zinc-800/80">
                   <img 
-                    src={profileImg}
+                    src="/profile.jpg"
                     alt="Kevin Tennison"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover transition-all duration-500"
