@@ -1,17 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "motion/react";
+import profileImg from "../assets/profile.jpg";
 
 export default function About() {
-  const [imgSrc, setImgSrc] = useState("https://github.com/kevintennison12-alt.png");
-
-  // Load live uploaded photo from localStorage if present
-  useEffect(() => {
-    const saved = localStorage.getItem("kevin_custom_portrait");
-    if (saved) {
-      setImgSrc(saved);
-    }
-  }, []);
-
   return (
     <section id="about" className="py-24 relative overflow-hidden bg-zinc-950/20 border-b border-editorial-border">
       {/* Background radial accent */}
@@ -54,7 +45,7 @@ export default function About() {
                 
                 <div className="relative aspect-[4/5] w-full bg-zinc-950 overflow-hidden border border-zinc-800/80">
                   <img 
-                    src={imgSrc || "https://github.com/kevintennison12-alt.png"}
+                    src={profileImg}
                     alt="Kevin Tennison"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover transition-all duration-500"
