@@ -97,7 +97,7 @@ export default function Projects() {
     },
     {
       id: "college-db",
-      title: "College  Database  Management  System",
+      title: "College Database Management System",
       description: "Web-based DBMS to organize and retrieve data for students, faculty, courses, and academic reports.",
       longDescription: "A web-based DBMS designed during academic coursework to organize and retrieve data for students, faculty, courses, and academic reports with a responsive front-end enabling streamlined administrative workflows.",
       category: "database",
@@ -108,7 +108,7 @@ export default function Projects() {
     },
     {
       id: "social-media-app",
-      title: "Social  Media  App",
+      title: "Social Media App",
       description: "A private responsive social media web application enabling real-time user interactions.",
       longDescription: "A private responsive social media web application utilizing modern TypeScript to enable real-time user feed interactions, profile customizations, and post creation with media support.",
       category: "fullstack",
@@ -119,7 +119,7 @@ export default function Projects() {
     },
     {
       id: "projectmanagmenttool",
-      title: "Project  Managment  Tool",
+      title: "Project Managment Tool",
       description: "Collaborative project management workspace with custom boards and drag-and-drop task tracking.",
       longDescription: "A collaborative project management workspace with custom boards, drag-and-drop task tracking, and milestone visualizations built in modern TypeScript.",
       category: "fullstack",
@@ -466,23 +466,13 @@ export default function Projects() {
 
                 {/* Simulated Trigger or Demo display */}
                 {p.interactiveDemo === "smartfood" ? (
-                  <div className="flex gap-2 mt-2">
-                    <button
-                      onClick={() => {
-                        setActiveProjectDemo(p.id);
-                      }}
-                      className="flex-1 py-2.5 rounded-none text-[9px] font-mono font-bold tracking-widest uppercase text-brand bg-brand/5 border border-brand/20 hover:bg-brand hover:text-black transition-all duration-300 cursor-pointer"
-                    >
-                      🚀 Trigger Simulator
-                    </button>
-                    <button
-                      disabled
-                      className="px-3 py-2.5 rounded-none text-[9px] font-mono font-bold tracking-widest uppercase text-green-400 bg-green-500/10 border border-green-500/20 flex items-center space-x-1.5 cursor-default"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                      <span>In Production</span>
-                    </button>
-                  </div>
+                  <button
+                    disabled
+                    className="mt-2 w-full py-2.5 rounded-none text-[9px] font-mono font-bold tracking-widest uppercase text-green-400 bg-green-500/10 border border-green-500/20 flex justify-center items-center space-x-1.5 cursor-default"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                    <span>In Production</span>
+                  </button>
                 ) : (
                   <button
                     disabled
