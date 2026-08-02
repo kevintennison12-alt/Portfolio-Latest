@@ -237,7 +237,6 @@ export default function Contact() {
                 <CheckCircle className="w-4 h-4 shrink-0 mt-0.5 text-brand" />
                 <div>
                   <span className="block font-bold uppercase tracking-wide text-[10px]">Message Dispatched Successfully!</span>
-                  <span className="text-[10px] text-zinc-400">Payload received by local dev pipeline and cataloged in simulation metrics.</span>
                 </div>
               </div>
             )}
