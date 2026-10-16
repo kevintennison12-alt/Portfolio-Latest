@@ -35,17 +35,6 @@ export default function Experience() {
 
   const experienceData = [
     {
-      role: "Full Stack Developer Intern",
-      organization: "CodeAlpha (Remote)",
-      period: "July 2026 – August 2026",
-      location: "Remote",
-      bullets: [
-        "Developed responsive full-stack web applications by integrating interactive frontend interfaces with secure backend services, REST APIs, and database management.",
-        "Implemented user authentication, CRUD operations, and performance optimizations while following clean coding practices and Git-based version control."
-      ],
-      tags: ["React", "Node.js", "Express", "REST APIs", "Git"]
-    },
-    {
       role: "Music Tutor",
       organization: "Eighty-Eight Keys Music (Self Employed)",
       period: "2026 – Present",
